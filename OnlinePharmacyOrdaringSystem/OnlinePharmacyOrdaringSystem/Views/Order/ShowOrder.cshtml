@@ -1,0 +1,149 @@
+﻿@using OnlinePharmacyOrdaringSystem.Models
+@model IEnumerable<Order>
+@{
+    ViewBag.Title = "ShowOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Medicine Order</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<div align="center" style="font-size: 40px">Orders</div>
+    User Id: @Session["PharmacyUserID"]
+    User name: @Session["PharmacyUsername"]
+<div class="container" style="margin-top: 3%">
+
+    <table class="table table-responsive">
+        <tr>
+            <th>Order Id</th>
+            <th>Customer Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Contact</th>
+            <th>Medicine</th>
+            <th>Quantity</th>
+            <th>Category</th>
+            <th>Total Bill</th>
+            <th> </th>
+            <th> </th>
+        </tr>
+
+        @foreach (Order order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.CustomerId</td>
+                <td>@order.CustomerName</td>
+                <td>@order.CustomerAddress</td>
+                <td>@order.CustomerContact</td>
+                <td>@order.MedicineName</td>
+                <td>@order.Quantity</td>
+                <td>@order.Category</td>
+                <td>@order.TotalBill</td>
+
+                @*<td><a href="#" data-toggle="popover" data-trigger="hover" id="@order.OrderId">@order.CustomerName</a></td>*@
+
+              
+
+
+                <td>
+                    <div align="right">
+                        @*<button id="viewDetails" class="btn btn-default" onclick="view(@order.OrderId)">View</button>*@
+                        <button id="acceptOrder" class="btn btn-info" style="border-radius:20px" onclick="accept(@order.OrderId,@Session["PharmacyUserID"], '@Session["PharmacyUsername"]')">Accept</button>
+                        <button id="rejectOrder" class="btn btn-info" style="border-radius:20px" onclick="reject(@order.OrderId, @Session["PharmacyUserID"], '@Session["PharmacyUsername"]')">Reject</button>
+                        <button id="deliverOrder" class="btn btn-secondary" style="border-radius:20px" onclick="deliver(@order.OrderId, @Session["PharmacyUserID"], '@Session["PharmacyUsername"]')">Deliver</button>
+                    </div>
+                </td>
+                
+            </tr>
+        }
+    </table>
+    <div>
+        @Html.ActionLink("Show prescription image", "ShowPrescription")
+        <br/>
+        @Html.ActionLink("Refresh", "ShowOrder")
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    //$(document).ready(function() {
+    //    $('[data-toggle="popover"]').popover({
+    //        title: setData,
+    //        html: true,
+    //        placement: 'right'
+    //    });
+       
+    //    function setData(id) {
+    //        var set_data = '';
+    //        var element = $(this);
+    //        var id = element.attr("id");
+    //        $.ajax({
+    //            url: "/Order/OrderInfo?id" + id,
+    //            method: "post",
+    //            async: false,
+    //            data: { id: id },
+    //            success: function(data) {
+    //                set_data = data;
+    //            }
+    //        });
+    //        return set_data;
+    //    }
+    //});
+
+    
+    //Accept button function
+    function accept(id, pharmUserId, username) {
+        //console.log(username);
+
+        $.ajax({
+            type: "POST",
+            url: "/Order/AcceptOrder",
+            data: { "OrderId": id,  "PharmUserId": pharmUserId, "PharmacyUserName": username },
+            success: function() {
+                alert("Request accepted");
+            }
+        });
+    }
+
+
+    //Reject button function
+    function reject(id, pharmUserId, username) {
+
+        $.ajax({
+            type: "POST",
+            url: "/Order/RejectOrder",
+            data: { "OrderId": id, "PharmUserId": pharmUserId, "PharmacyUserName": username },
+            success: function() {
+                alert("Request rejected");
+            }
+        });
+    }
+
+
+    //Deliver button function
+    function deliver(id, pharmUserId, username) {
+
+        $.ajax({
+            type: "POST",
+            url: "/Order/DeliverOrder",
+            data: { "OrderId": id, "PharmUserId": pharmUserId, "PharmacyUserName": username },
+            success: function() {
+                alert("Order delivered");
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
+

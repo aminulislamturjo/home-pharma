@@ -1,0 +1,45 @@
+﻿@model IEnumerable<OnlinePharmacyOrdaringSystem.MedicineImageOrder>  
+
+@{
+    ViewBag.Title = "ShowPrescription";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowPrescription</h2>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Order Id</th>
+        <th>Prescription</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ImageId</td>
+            <td>
+                @{
+                    var base64 = Convert.ToBase64String(item.PresImage);
+                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                }
+                <img src="@imgsrc" style="max-width: 100px; max-height: 100px"/>
+            </td>
+            <td>
+                <button id="acceptPresOrder" class="btn btn-primary" onclick="acceptPres(@item.ImageId)">Accept</button>
+                <button id="rejectPresOrder" class="btn btn-danger" onclick="rejectPres(@item.ImageId)">Reject</button>
+            </td>
+
+        </tr>
+
+    }
+    </tbody>
+
+</table>
+
+<div>
+    @Html.ActionLink("Show medicine order", "ShowOrder")
+    <br />
+    @Html.ActionLink("Refresh", "ShowPrescription")
+</div>

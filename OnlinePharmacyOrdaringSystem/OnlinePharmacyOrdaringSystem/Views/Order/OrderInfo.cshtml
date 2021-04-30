@@ -1,0 +1,22 @@
+﻿@using OnlinePharmacyOrdaringSystem.Models
+@model IEnumerable<Order>
+@{
+    ViewBag.Title = "OrderInfo";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>OrderInfo</h2>*@
+
+<div class="container">
+    @*<h4 style="text-align: center;border-bottom: 1px solid #808080">Order info</h4>*@
+    @foreach (var item in Model)
+    {
+        <p><label>Name: </label> @item.CustomerName</p>
+        <p><label>Address: </label> @item.CustomerAddress</p>
+        <p><label>Contact: </label> @item.CustomerContact</p>
+        <p><label>Medicine name: </label> @item.MedicineName</p>
+        <p><label>Medicine category: </label> @item.Category</p>
+        <p><label>Medicine quantity: </label> @item.Quantity</p>
+        <p><label>Total bill: </label> @item.TotalBill</p>
+    }
+</div>

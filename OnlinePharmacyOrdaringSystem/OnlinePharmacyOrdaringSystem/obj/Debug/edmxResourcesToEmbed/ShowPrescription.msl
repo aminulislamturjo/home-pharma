@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ImageModelStoreContainer" CdmEntityContainer="ImageEntities">
+    <EntitySetMapping Name="MedicineImageOrders">
+      <EntityTypeMapping TypeName="ImageModel.MedicineImageOrder">
+        <MappingFragment StoreEntitySet="MedicineImageOrders">
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+          <ScalarProperty Name="PresImage" ColumnName="PresImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

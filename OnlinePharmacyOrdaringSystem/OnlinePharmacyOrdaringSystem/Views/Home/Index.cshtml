@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+@*<div class="jumbotron">
+    <h1>HomePharma</h1>
+    <p class="lead">Welcome to HomePharma. An online medicine ordaring and delivery system in Bangladesh.</p>
+    <p><a href="http://homepharma.com" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>*@
+
+
+@*Basic map*@
+
+@*<style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #map {
+        height: 400px;
+        width: 700px;
+    }
+</style>
+<br/>
+<div class="row">
+    <div id="map"></div>
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 22.330370, lng: 91.832626 },
+                zoom: 8
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXjrse0RwAsBGRkSyYTD-khvbEJz48EK4&callback=initMap"
+            async defer></script>
+</div>*@
+
+
+    <!-- Slide1 -->
+<section class="slide1">
+    <div class="wrap-slick1">
+        <div class="slick1">
+            <div class="item-slick1 item1-slick1" style="background-image: url(../../Template/images/HomePharma.jpeg); ">
+                <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+                    <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
+                        @*Women Collection 2018*@
+                        MEDICINE AT HOME
+                    </span>
+
+                    <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
+                        @*New arrivals*@
+                        HOME PHARMA
+                    </h2>
+
+                    <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="zoomIn">
+                        <!-- Button -->
+                        <a href="/Pharmacy/Save" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">Register</a>
+
+                        @*<a href="~/Template/product.html" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+
+                                Register Pharmacy
+                            </a>*@
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-slick1 item2-slick1" style="background-image: url(../../Template/images/tablets.jpeg);">
+                <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+                    <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rollIn">
+                        DOORSTEP SERVICE
+                    </span>
+
+                    <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="lightSpeedIn">
+                        HOME PHARMA
+                    </h2>
+
+                    <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="slideInUp">
+                        <!-- Button -->
+                        <a href="/MedicineWithPic/AddNewMedicine" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                            Save Medicine
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-slick1 item3-slick1" style="background-image: url(../../Template/images/heart.jpeg);">
+                <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+                    <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rotateInDownLeft">
+                        QUICK HEALTH SOLUTION
+                    </span>
+
+                    <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="rotateInUpRight">
+                        HOME PHARMA
+                    </h2>
+
+                    <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="rotateIn">
+                        <!-- Button -->
+                        <a href="/Order/ShowOrder" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                            View Orders
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+@*Current location with lat lng in alart window*@
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+    window.onload = function () {
+        var mapOptions = {
+            center: new google.maps.LatLng(18.9300, 72.8200),
+            zoom: 14,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+
+        
+        var infoWindow = new google.maps.InfoWindow();
+        //var latlngbounds = new google.maps.LatLngBounds();
+        var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+        google.maps.event.addListener(map, 'click', function (e) {
+            alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+        });
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(p) {
+                var position = {
+                    lat: p.coords.latitude,
+                    lng: p.coords.longitude
+                };
+                infoWindow.setPosition(position);
+                infoWindow.setContent('Your location!');
+                infoWindow.open(map);
+            }, function() {
+                handleLocationError('Geolocation service failed', map.center());
+            })
+        } else {
+            handleLocationError('No geolocation available', map.center());
+        }
+    }
+
+    function handleLocationError(content, position) {
+        infoWindow.setPosition(position);
+        infoWindow.setContent(content);
+        infoWindow.open(map);
+    }
+</script>
+<div id="dvMap" style="width: 500px; height: 400px">
+</div>
+
+
+
+

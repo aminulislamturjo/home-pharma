@@ -1,0 +1,108 @@
+﻿@using OnlinePharmacyOrdaringSystem.Models
+
+
+@{
+    ViewBag.Title = "SaveMedicine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<Category> categories = ViewBag.Category;
+}
+
+<h2>Medicine</h2>
+<h5>
+    Save new medicine
+</h5>
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Save medicine</title>
+
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @ViewBag.Message
+                    </div>
+
+                }
+
+                <form method="POST" id="medicineSaveForm">
+
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Quantity">Quantity</label>
+                        <input type="number" class="form-control" id="Quantity" name="Quantity" min="0" placeholder="Quantity">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="CategoryId">Category</label>
+                        <select id="CategoryId" name="CategoryId" class="form-control">
+                            <option value="">Select category</option>
+                            @foreach (Category category in categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Save</button>
+
+                    
+                    <div>
+                        @Html.ActionLink("Add new medicine", "SaveMedicine")
+                    </div>
+                    <div>
+                        @Html.ActionLink("Show medicines", "ShowMedicine")
+                    </div>
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script src="~/Scripts/jquery.validate.min.js"></script>*@
+<script src="~/Scripts/jquery.validate.min.js"></script>
+@*<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(function() {
+        $("#medicineSaveForm").validate({
+            rules: {
+                Name: 'required',
+                Quantity: 'required',
+                CategoryId: 'required'
+            },
+            messages: {
+                Name: "Please enter course name",
+                Quantity: "Please enter quantity",
+                CategoryId: "Please select category"
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
